@@ -82,9 +82,9 @@
     (display "}")))
 
 
-(count-change 100)
+(count-change 10)
 
 
 ; dot -Tps test.dot > test.eps
 ; dot -Tpng test.dot > test.png
-(cc-graph 100  5)
+(cc-graph 10  5)
