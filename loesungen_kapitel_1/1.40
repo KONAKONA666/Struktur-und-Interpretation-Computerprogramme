@@ -1,0 +1,7 @@
+#lang racket
+
+(define (a-plus-abs-b a b)
+  ((if (> b 0) + -) a b))
+
+; wenn b >  0 -> a + b
+; wenn b <= 0 -> a - b mit b = -b -> a - -b -> a + b
