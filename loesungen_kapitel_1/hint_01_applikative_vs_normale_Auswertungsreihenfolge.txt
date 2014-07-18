@@ -5,8 +5,8 @@ Applikativen- und der Normalen Auswertung:
 ======================================================
 
 
-Gegen sind folgende Prozeduren (Funktionen):
-============================================
+Gegeben sind folgende Prozeduren (Funktionen):
+==============================================
 (define (quadrat x)
  (* x x))
 
