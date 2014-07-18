@@ -1,0 +1,62 @@
+#lang racket
+; Wir bauen unsere eigene Quadratwurzelberechnung nach dem
+; vereinfachten Newtonschen Iterationsverfahren
+(define (mittelwert a b)
+  (/ (+ a b) 2))
+
+(define (quadrat a)
+  (* a a))
+
+(define (abs a)
+  (if (< a 0)
+      (- a)
+      a))
+
+(define (verbessern schaetzwert x)
+  (mittelwert schaetzwert (/ x schaetzwert)))
+
+(define (gut-genug? schaetzwert x)
+  (< (abs (- (quadrat schaetzwert) x)) 0.001))
+
+(define (wurzel-iter schaetzwert x)
+  (if (gut-genug? schaetzwert x)
+      schaetzwert
+      (wurzel-iter (verbessern schaetzwert x)
+                   x)))
+                   
+(define (wurzel x)
+  (wurzel-iter 1.0 x))
+
+(wurzel 9) ; ca 3 ok
+(wurzel 25) ; ca 5 ok
+; Anmerkung: bei sehr kleinen Zahlen funktioniert unser
+; wurzel-iter noch nicht so gut... siehe 1.70
+
+
+  
+
+; Alyssa P. Hacker sieht nicht ein wozu if als Sonderform benötigt wird.
+; Sie implementiert if selber mit cond und testet Ihre Prozedur ein wenig
+
+(define (neues-if praedikat then-klausel else-klausel)
+  (cond (praedikat then-klausel)
+        (else else-klausel)))
+
+(neues-if (= 2 3) 0 5)
+; 5 ok richtig
+(neues-if (= 1 1) 0 5)
+; 0 ok richtig
+
+; Hocherfreut verwendet Alyssa Ihr neues-if in Scheme
+(define (wurzel-iter-alyssa schaetzwert x)
+  (neues-if (gut-genug? schaetzwert x)
+            schaetzwert
+            (wurzel-iter-alyssa (verbessern schaetzwert x)
+                                x)))
+
+(define (wurzel-alyssa x)
+  (wurzel-iter-alyssa 1 x))
+
+(wurzel-alyssa 9) ; Uuuuuppssss wieder Endlosschleife dank 
+                  ; applikativer Auswertungsreihenfolge
+; if ist nämlich ein Sonderfall und wird sofort ausgewertet...
