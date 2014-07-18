@@ -1,0 +1,63 @@
+
+Dieser kurze Text erklärt den Unterschied zwischen der 
+Applikativen- und der Normalen Auswertung:
+======================================================
+======================================================
+
+
+Gegen sind folgende Prozeduren (Funktionen):
+============================================
+(define (quadrat x)
+ (* x x))
+
+(define (quadratsumme x y)
+ (+ (quadrat x) (quadrat y)))
+
+(define (f a)
+ (quadratsumme (+ a 1) (* a 2)))
+
+
+Nun wird die Prozedur f mit dem Argument 5 aufgerufen und ausgewertet
+1) in applikativer Reihenfolge
+2) in normaler Reihenfolge
+=====================================================================
+
+1) Applikative Reihenfolge
+    
+(f 5)
+(quadratsumme (+ 5 1) (* 5 2))
+(+ (quadrat 6) (quadrat 10))
+(+ (* 6 6) (* 10 10))
+(+ 36 100)
+136
+
+Hier werden erst die Argumente ausgewertet und dann angewendet !!!
+Diese Auswertung wird applikative Auswertung genannt.
+
+
+2) Normale Reihenfolge
+
+(f 5)
+(quadratsumme (+ 5 1) (* 5 2))
+(+     (quadrat (+ 5 1)       (* 5 2)))
+(+     (* (+ 5 1) (+ 5 1))    (* (+ 5 2) (+ 5 2)))
+(+     (* 6 6)                (* 10 10 ))
+(+     36                     100
+136
+
+Hier wird es voll erweitert und dann reduziert !!!
+Diese Auswertung wird normale Auswertung genannt.
+
+
+Unterschied
+===========
+Lisp und Scheme benutzen die Auswertung in applikativer Reihenfolge,
+wegen der teilweisen Effizienz (bei der normalen wurde oben die
+Ausdrücke (+ 5 1) und (+ 5 2) jeweils zweimal ausgwertet.
+Und vor allem, weil die Auswertung in normaler Reihenfolge sehr viel
+komplizierter ist, wenn der Bereich der einfachen Prozeduren verlassen
+wird.
+
+Hier reicht es aber zu verstehen, dass man weiß wie ein Ausdruck in
+applikativer oder normaler Reihenfolge ausgewertet wird.
+
